@@ -1,0 +1,193 @@
+const words = [
+  "auto",
+  "haus",
+  "garage",
+  "zahnbürste",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "Besessene",
+  "Beseitigung",
+  "Beschwerde",
+  "Beschuldigung",
+];
+exports.words = words;
+
+Beschuetzer;
+Beschuetzerin;
+Beschuetzern;
+Beschuetzers;
+Beschuldigung;
+Beschuldigungen;
+Beschwerde;
+Beschwerdebriefe;
+Beschwerderecht;
+Beschwerdeverfahren;
+Beschwerung;
+Beschwichtigungen;
+Beschwichtigungspolitik;
+Beschwoerung;
+Beschwoerungsformeln;
+Beseitigung;
+Besen;
+Besens;
+Besenstiel;
+Besenstielen;
+Besenstiels;
+Besessene;
+Besessenheiten;
+Besetztzeichen;
+Besetztzeichens;
+Besetzungen;
+Besetzungsaktion;
+Besetzungsliste;
+Besichtigung;
+Besichtigungen;
+Besichtigungsfahrten;
+Besichtigungsflug;
+Besichtigungsreise;
+Besichtigungsreisen;
+Besichtigungstermine;
+Besiedlung;
+Besiedlungen;
+Besieger;
+Besiegung;
+Bildraum
+Bildreihe
+Bildroehre
+Bildschaerfe
+Bildschema
+Bildschirm
+Bildschirmausgabe
+Bildschirmdarstellungen
+Bildschirme
+Bildschirmes
+Bildschirmgeraete
+Bildschirmgruppen
+Bildschirmliebling
+Bildschirmrand
+Bildschirms
+Bildschirmtext
+Bildschirmunterhaltung
+Bildschirmzeile
+Bildsendung
+Bildstreifen
+Bildtafeln
+Bildteppiche
+Bildteppichen
+Bilduebertragung
+Bildung
+Bildungs
