@@ -108,7 +108,13 @@ server.get("/download", (req, res) => {
         hashMapping[wordHash] = randomWord;
         fs.writeFile(
           "./audios/hashAudioNameMapping.json",
-          JSON.stringify(hashMapping)
+          JSON.stringify(hashMapping),
+          (err) => {
+            if (err) console.log(err);
+            else {
+              console.log("File written successfully\n");
+            }
+          }
         );
       }
     }
