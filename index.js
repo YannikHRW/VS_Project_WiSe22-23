@@ -26,16 +26,15 @@ server.get('/', (req, res) => res.render('pages/index'))
 server.post('/api/text', (req, res, next) => {
     savedText = req.body.text;
     console.log(savedText);
-    res.status(200).json({
-        message: 'Text sent successfully'
-    });
+    next();
 })
 
-server.get("/deepl", async (req, res) => {
+server.use(async (req, res) => {
     translatedText = await Deepl(savedText)
     console.log(translatedText);
     res.status(200).json({
-        message: 'Text translated successfully'
+        message: 'Text translated successfully',
+        text: translatedText
     });
 });
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
