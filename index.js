@@ -16,6 +16,7 @@ server.use(express.json());
 // server.use("/", router);
 
 let savedText;
+let translatedText;
 
 server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
@@ -30,8 +31,11 @@ server.post('/api/text', (req, res, next) => {
     });
 })
 
-server.get("/deepl", (req, res) => {
-    Deepl(savedText)
-  res.status(200);
+server.get("/deepl", async (req, res) => {
+    translatedText = await Deepl(savedText)
+    console.log(translatedText);
+    res.status(200).json({
+        message: 'Text translated successfully'
+    });
 });
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
