@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
+const http = require('http');
+const https = require('https');
+const {response} = require("express");
 // const cors = require("cors");
 // const router = require("./routes/main.js");
 
@@ -20,6 +23,10 @@ server.get('/', (req, res) => res.render('pages/index'))
 
 server.post('/api/text', (req, res, next) => {
     savedText = req.body.text;
+    console.log(savedText);
+    res.status(200).json({
+        message: 'Text sent successfully'
+    });
 })
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
