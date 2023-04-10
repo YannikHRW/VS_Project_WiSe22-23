@@ -7,6 +7,7 @@ const https = require('https');
 const {response} = require("express");
 // const cors = require("cors");
 // const router = require("./routes/main.js");
+const Deepl = require("./deeplRequest")
 
 const server = express();
 server.use(express.static(path.join(__dirname, "public")));
@@ -29,4 +30,8 @@ server.post('/api/text', (req, res, next) => {
     });
 })
 
+server.get("/deepl", (req, res) => {
+    Deepl(savedText)
+  res.status(200);
+});
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
