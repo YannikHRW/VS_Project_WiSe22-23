@@ -25,13 +25,13 @@ server.get('/', (req, res) => res.render('pages/index'))
 
 server.post('/api/text', (req, res, next) => {
     savedText = req.body.text;
-    console.log(savedText);
+    console.log("Eingangstext: " +savedText);
     next();
 })
 
 server.use(async (req, res) => {
     translatedText = await Deepl(savedText)
-    console.log(translatedText);
+    console.log("Übersetzter Text: " +translatedText);
     res.status(200).json({
         message: 'Text translated successfully',
         text: translatedText
