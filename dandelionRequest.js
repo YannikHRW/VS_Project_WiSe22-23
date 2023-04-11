@@ -2,7 +2,10 @@ require("dotenv").config();
 const axios = require("axios");
 
 const sendtoDandelion = async function (textOB) {
-  let result = { text1: textOB.text1, text2: textOB.text2 };
+  let result = {
+    originEnglishText: textOB.text1,
+    optimizedEnglishText: textOB.text2,
+  };
 
   text1 = encodeURIComponent(textOB.text1);
   text2 = encodeURIComponent(textOB.text2);
