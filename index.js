@@ -9,8 +9,6 @@ const { response } = require("express");
 // const router = require("./routes/main.js");
 const Deepl = require("./deeplRequest");
 const Nlp = require("./nlpRequest");
-const nlpReq = Nlp.sendtoNLP;
-const nlpReqAsync = Nlp.sendtoNLPasync;
 
 const server = express();
 server.use(express.static(path.join(__dirname, "public")));
@@ -54,11 +52,9 @@ server.post("/api/translated-text", (req, res, next) => {
 
 //Diese Middleware korrigiert den Text
 server.use(async (req, res) => {
-  let url = await nlpReq(translatedText);
-  let optimizedContent = await nlpReqAsync(url);
+  let optimizedContent = await Nlp(translatedText);
   console.log(optimizedContent);
   res.status(200).json({
-    url,
     optimizedContent,
   });
 });
