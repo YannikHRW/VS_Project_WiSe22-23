@@ -1,0 +1,40 @@
+
+.textfields-wrapper {
+    font-size: 200%;
+    display: flex;
+      flex-direction: row;
+  }
+  
+  .text-field-container {
+    font-size: 200%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }
+  
+  .centered-btn {
+    margin-top: auto;
+    margin-bottom: auto;
+    display: block;
+    width: 80%;
+    }
+       
+        
+        
+        button {
+          margin: 10px;
+          padding: 10px;
+          font-size: 16px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        
+        .button-container {
+      text-align: center;
+        }
+  
+        
+  
