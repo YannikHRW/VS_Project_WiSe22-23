@@ -2,12 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
-const http = require('http');
-const https = require('https');
-const {response} = require("express");
+const http = require("http");
+const https = require("https");
+const { response } = require("express");
 // const cors = require("cors");
 // const router = require("./routes/main.js");
-const Deepl = require("./deeplRequest")
+const Deepl = require("./deeplRequest");
+const Nlp = require("./nlpRequest");
+const nlpReq = Nlp.sendtoNLP;
+const nlpReqAsync = Nlp.sendtoNLPasync;
 
 const server = express();
 server.use(express.static(path.join(__dirname, "public")));
@@ -21,38 +24,43 @@ let translatedText;
 server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
 
-server.get('/', (req, res) => res.render('pages/index'))
+server.get("/", (req, res) => res.render("pages/index"));
 
 //Nimmt den deutschen Ursprungstext entgegen
-server.post('/api/text', (req, res, next) => {
-    savedText = req.body.text;
-    console.log("Eingangstext: " +savedText);
-    //next(); ruft automatisch die nächste Middleware zur Übersetzung auf
-    next();
-})
+server.post("/api/text", (req, res, next) => {
+  savedText = req.body.text;
+  console.log("Eingangstext: " + savedText);
+  //next(); ruft automatisch die nächste Middleware zur Übersetzung auf
+  next();
+});
 
 //Übersetzt den Text und sendet ihn an das Frontend zurück
 server.use(async (req, res) => {
-    translatedText = await Deepl(savedText)
-    console.log("Übersetzter Text: " +translatedText);
-    res.status(200).json({
-        message: 'Text translated successfully',
-        text: translatedText
-    });
+  translatedText = await Deepl(savedText);
+  console.log("Übersetzter Text: " + translatedText);
+  res.status(200).json({
+    message: "Text translated successfully",
+    text: translatedText,
+  });
 });
 
 //Nimmt den übersetzten und ggf. abgeänderten Text vom Frontend entgegen
-server.post('/api/translated-text', (req, res, next) => {
-    translatedText = req.body.text;
-    console.log("Zu korrigierender Text: " +translatedText);
-    //next(); ruft automatisch die nächste Middleware zur Korrektur des Textes auf
-    next();
-})
+server.post("/api/translated-text", (req, res, next) => {
+  translatedText = req.body.text;
+  console.log("Zu korrigierender Text: " + translatedText);
+  //next(); ruft automatisch die nächste Middleware zur Korrektur des Textes auf
+  next();
+});
 
 //Diese Middleware korrigiert den Text
-server.use(async (req, res) => {});
-
+server.use(async (req, res) => {
+  let url = await nlpReq(translatedText);
+  let optimizedContent = await nlpReqAsync(url);
+  console.log(optimizedContent);
+  res.status(200).json({
+    url,
+    optimizedContent,
+  });
+});
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-
