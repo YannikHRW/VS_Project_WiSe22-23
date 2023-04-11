@@ -1,18 +1,16 @@
 require("dotenv").config();
 const axios = require("axios");
 
-const sendtoDeepL = async function (text) {
-  //console.log(text);
-  text = encodeURIComponent(text)
+const sendtoDeepL = async function (textOB) {
+  text = encodeURIComponent(textOB.text);
   let result;
   await axios({
-    url: `https://api-free.deepl.com/v2/translate?auth_key=${process.env.DEEPL_KEY}&text=${text}&target_lang=DE`,
+    url: `https://api-free.deepl.com/v2/translate?auth_key=${process.env.DEEPL_KEY}&text=${text}&target_lang=${textOB.lang}`,
     method: "POST",
     responseType: "application/json",
   }).then((res) => {
-    //console.log(JSON.parse(res.data));
-    const a = JSON.parse(res.data)
-    result = a.translations[0].text;
+    const data = JSON.parse(res.data);
+    result = data.translations[0].text;
   });
   return result;
 };
