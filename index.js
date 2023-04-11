@@ -26,7 +26,7 @@ let optimizedGermanText = "";
 server.set("views", path.join(__dirname, "views"));
 server.set("view engine", "ejs");
 
-server.get("/", (req, res) => res.render("pages/index"));
+server.use(express.static('public'));
 
 // translates the text in DE
 server.post("/translate/DE", async (req, res) => {
@@ -97,7 +97,6 @@ server.get("/similarity", async (req, res) => {
   console.log(delta);
   res.status(200).json({
     delta,
-  });
-});
+  });});
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
