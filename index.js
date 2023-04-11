@@ -47,13 +47,17 @@ server.post("/translate/:lang", async (req, res) => {
 // optimizes the german input text
 server.post("/optimize", async (req, res) => {
   translatedText = req.body.text;
-  console.log("Zu korrigierender Text: " + translatedText);
-
-  let optimizedContent = await Nlp(translatedText);
-  console.log(optimizedContent);
-  res.status(200).json({
-    optimizedContent,
-  });
+  if (typeof translatedText !== 'undefined') {
+    console.log("Zu korrigierender Text: " + translatedText);
+    let optimizedContent = await Nlp(translatedText);
+    console.log(optimizedContent);
+    res.status(200).json({
+      optimizedContent,
+    });
+  }else{
+    res.status(400).json({
+      message: "No text sent"});
+  }
 });
 
 // checks delta of two texts
