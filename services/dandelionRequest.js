@@ -12,15 +12,20 @@ const sendtoDandelion = async function (textOB) {
   console.log(text1);
   console.log(text2);
   await axios({
-    url: `https://api.dandelion.eu/datatxt/sim/v1/?text1=${text1}&text2=${text2}&token=${process.env.Dandelion_KEY}`,
+    url: `https://api.dandelion.eu/datatxt/sim/v1/?lang=en&text1=${text1}&text2=${text2}&token=${process.env.Dandelion_KEY}`,
     method: "GET",
     responseType: "application/json",
-  }).then((res) => {
-    console.log(JSON.parse(res.data));
-    const resJson = JSON.parse(res.data);
-    console.log(resJson.similarity);
-    result.similarity = resJson.similarity;
-  });
+  })
+    .then((res) => {
+      console.log(JSON.parse(res.data));
+      const resJson = JSON.parse(res.data);
+      console.log(resJson.similarity);
+      result.similarity = resJson.similarity;
+    })
+    .catch((err) => {
+      console.log(err);
+      result.similarity = 0;
+    });
   return result;
 };
 
