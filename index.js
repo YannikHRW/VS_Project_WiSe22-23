@@ -3,7 +3,8 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 // const cors = require("cors");
-const router = require("./routes/main");
+const routerExport = require("./routes/main");
+const router = routerExport.router;
 
 const server = express();
 server.use(express.static(path.join(__dirname, "public")));

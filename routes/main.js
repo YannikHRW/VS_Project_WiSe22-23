@@ -5,9 +5,7 @@ const Deepl = require("../services/deeplRequest");
 const Nlp = require("../services/nlpRequest");
 const Dandelion = require("../services/dandelionRequest");
 
-let textOB = {};
-let originEnglishText = "";
-let englishTranslation = "";
+const vars = { textOB: {}, originEnglishText: "", englishTranslation: "" };
 
 router.get("/", (req, res) => res.render("pages/index"));
 
@@ -18,14 +16,14 @@ router.post("/translate/DE", async (req, res) => {
     return;
   }
 
-  textOB.lang = "DE";
-  textOB.text = req.body.text;
+  vars.textOB.lang = "DE";
+  vars.textOB.text = req.body.text;
 
-  originEnglishText = textOB.text;
+  vars.originEnglishText = vars.textOB.text;
 
-  console.log("Eingangstext: " + textOB.text);
+  console.log("Eingangstext: " + vars.originEnglishText);
 
-  let germanTranslation = await Deepl(textOB);
+  let germanTranslation = await Deepl(vars.textOB);
   console.log("Übersetzter Text: " + germanTranslation);
   res.status(200).json({
     germanTranslation,
@@ -39,15 +37,15 @@ router.post("/translate/EN", async (req, res) => {
     return;
   }
 
-  textOB.lang = "EN";
-  textOB.text = req.body.text;
+  vars.textOB.lang = "EN";
+  vars.textOB.text = req.body.text;
 
-  console.log("Eingangstext: " + textOB.text);
+  console.log("Eingangstext: " + vars.textOB.text);
 
-  englishTranslation = await Deepl(textOB);
-  console.log("Übersetzter Text: " + englishTranslation);
+  vars.englishTranslation = await Deepl(vars.textOB);
+  console.log("Übersetzter Text: " + vars.englishTranslation);
   res.status(200).json({
-    englishTranslation,
+    englishTranslation: vars.englishTranslation,
   });
 });
 
@@ -87,15 +85,15 @@ router.post("/optimize/paraphrasing", async (req, res) => {
 
 // checks delta of two texts
 router.get("/similarity", async (req, res) => {
-  if (!originEnglishText || !englishTranslation) {
+  if (!vars.originEnglishText || !vars.englishTranslation) {
     res
       .status(400)
       .send("can't compare if there is no origin text or no optimized text");
     return;
   }
   let delta = await Dandelion({
-    text1: originEnglishText,
-    text2: englishTranslation,
+    text1: vars.originEnglishText,
+    text2: vars.englishTranslation,
   });
   console.log(delta);
   res.status(200).json({
@@ -103,4 +101,4 @@ router.get("/similarity", async (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = { router, vars };
