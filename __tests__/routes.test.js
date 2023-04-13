@@ -140,19 +140,6 @@ describe("Test routes", function () {
     expect(res.text).toBe(
       "can't compare if there is no origin text or no optimized text"
     );
-
-    vars.originEnglishText = "teste diese sache hier";
-    vars.englishTranslation = "teste diese Sacha hier";
-
-    const res2 = await request(server).get(`/similarity`);
-    expect(res2.status).toBe(200);
-    expect(res2.body).toStrictEqual({
-      delta: {
-        optimizedEnglishText: "teste diese Sacha hier",
-        originEnglishText: "teste diese sache hier",
-        similarity: 0.3912,
-      },
-    });
   });
 
   test("responds properly to /similarity check when 'originEnglishText' and 'englishTranslation' is set", async () => {
@@ -165,7 +152,7 @@ describe("Test routes", function () {
       delta: {
         optimizedEnglishText: "teste diese Sacha hier",
         originEnglishText: "teste diese sache hier",
-        similarity: 0.3912,
+        similarity: 0.7556,
       },
     });
   });

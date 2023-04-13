@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const Deepl = require("../services/deeplRequest");
+const DeeplExport = require("../services/deeplRequest");
+const Deepl = DeeplExport.sendtoDeepL;
 const Nlp = require("../services/nlpRequest");
 const Dandelion = require("../services/dandelionRequest");
 
