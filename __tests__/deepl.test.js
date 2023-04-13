@@ -1,6 +1,5 @@
 require("dotenv").config();
 const DeeplExport = require("../services/deeplRequest");
-const fetchAPI = DeeplExport.fetchAPI;
 const sendtoDeepL = DeeplExport.sendtoDeepL;
 
 const axios = require("axios");

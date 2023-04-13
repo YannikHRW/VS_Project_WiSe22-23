@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 
 const sendtoDeepL = async function (textOB) {
-  let res = await fetchAPI(textOB);
+  const res = await fetchAPI(textOB);
   if (res.status === 200) {
     return res.data.translations[0].text;
   } else {

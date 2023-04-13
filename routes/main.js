@@ -85,16 +85,21 @@ router.post("/optimize/paraphrasing", async (req, res) => {
 });
 
 // checks delta of two texts
-router.get("/similarity", async (req, res) => {
+router.get("/similarity/:mode?", async (req, res) => {
   if (!vars.originEnglishText || !vars.englishTranslation) {
     res
       .status(400)
       .send("can't compare if there is no origin text or no optimized text");
     return;
   }
+  let syntacticMode = "";
+  if (req.params.mode === "syntactic") {
+    syntacticMode = "bow=always&";
+  }
   let delta = await Dandelion({
     text1: vars.originEnglishText,
     text2: vars.englishTranslation,
+    syntacticMode,
   });
   console.log(delta);
   res.status(200).json({
