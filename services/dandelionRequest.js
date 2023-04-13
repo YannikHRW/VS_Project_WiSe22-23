@@ -11,7 +11,7 @@ const sendtoDandelion = async function (textOB) {
     result.similarity = res.data.similarity;
     return result;
   } else {
-    result.similarity = `Error: Deepl-API responded with a ${res.status} Code.`;
+    result.similarity = `Error: Dandelion-API responded with a ${res.status} Code.`;
     return result;
   }
 };

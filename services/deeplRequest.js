@@ -19,9 +19,8 @@ const fetchAPI = async (textOB) => {
     )
     .catch((err) => {
       console.log(err);
-      console.log(err.response);
       return err.response;
     });
 };
 
-module.exports = { sendtoDeepL, fetchAPI };
+module.exports = sendtoDeepL;

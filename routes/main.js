@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const DeeplExport = require("../services/deeplRequest");
-const Deepl = DeeplExport.sendtoDeepL;
-const Nlp = require("../services/nlpRequest");
+const Deepl = require("../services/deeplRequest");
+const NlpExport = require("../services/nlpRequest");
+const Nlp = NlpExport.sendtoNLP;
 const Dandelion = require("../services/dandelionRequest");
 
-const vars = { textOB: {}, originEnglishText: "", englishTranslation: "" };
+const vars = { originEnglishText: "", englishTranslation: "" };
 
 router.get("/", (req, res) => res.render("pages/index"));
 
@@ -17,14 +17,12 @@ router.post("/translate/DE", async (req, res) => {
     return;
   }
 
-  vars.textOB.lang = "DE";
-  vars.textOB.text = req.body.text;
-
-  vars.originEnglishText = vars.textOB.text;
-
+  vars.originEnglishText = req.body.text;
   console.log("Eingangstext: " + vars.originEnglishText);
-
-  let germanTranslation = await Deepl(vars.textOB);
+  let germanTranslation = await Deepl({
+    lang: "DE",
+    text: req.body.text,
+  });
   console.log("Übersetzter Text: " + germanTranslation);
   res.status(200).json({
     germanTranslation,
@@ -38,12 +36,11 @@ router.post("/translate/EN", async (req, res) => {
     return;
   }
 
-  vars.textOB.lang = "EN";
-  vars.textOB.text = req.body.text;
-
-  console.log("Eingangstext: " + vars.textOB.text);
-
-  vars.englishTranslation = await Deepl(vars.textOB);
+  console.log("Eingangstext: " + req.body.text);
+  vars.englishTranslation = await Deepl({
+    lang: "EN",
+    text: req.body.text,
+  });
   console.log("Übersetzter Text: " + vars.englishTranslation);
   res.status(200).json({
     englishTranslation: vars.englishTranslation,
@@ -58,8 +55,9 @@ router.post("/optimize/gs-correction", async (req, res) => {
   }
   console.log("Zu korrigierender Text: " + req.body.text);
   let optimizedTextGS = await Nlp({
-    inputText: req.body.text,
+    text: req.body.text,
     service: "gs-correction",
+    asyncMode: req.body.text.length <= 250 ? "" : "async/",
   });
   console.log(optimizedTextGS);
   res.status(200).json({
@@ -75,8 +73,9 @@ router.post("/optimize/paraphrasing", async (req, res) => {
   }
   console.log("Zu korrigierender Text: " + req.body.text);
   let optimizedTextPara = await Nlp({
-    inputText: req.body.text,
+    text: req.body.text,
     service: "paraphrasing",
+    asyncMode: req.body.text.length <= 250 ? "" : "async/",
   });
   console.log(optimizedTextPara);
   res.status(200).json({

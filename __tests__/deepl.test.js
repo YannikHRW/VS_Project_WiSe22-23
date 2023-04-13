@@ -1,12 +1,11 @@
 require("dotenv").config();
-const DeeplExport = require("../services/deeplRequest");
-const sendtoDeepL = DeeplExport.sendtoDeepL;
+const sendtoDeepL = require("../services/deeplRequest");
 
 const axios = require("axios");
 
 jest.mock("axios");
 
-describe("fetchData", () => {
+describe("Deepl fetchData", () => {
   it("fetches successfully data from deepl API", async () => {
     const res = {
       data: {
