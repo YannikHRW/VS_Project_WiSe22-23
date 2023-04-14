@@ -7,7 +7,7 @@ const routerExport = require("./routes/main");
 const router = routerExport.router;
 
 const server = express();
-server.use(express.static(path.join(__dirname, "vs-frontend")));
+server.use(express.static(path.join(__dirname, "public")));
 server.use(
   cors({
     origin: [

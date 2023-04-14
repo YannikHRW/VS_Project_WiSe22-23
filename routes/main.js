@@ -8,10 +8,8 @@ const Dandelion = require("../services/dandelionRequest");
 
 const vars = { originEnglishText: "", englishTranslation: "" };
 
-/* router.get("/", (req, res) => res.render("pages/index")); */
-
 router.get("/", (req, res) => {
-  res.sendFile(`${path.join(__dirname, "vs-frontend")}index.html`);
+  res.sendFile(`${path.join(__dirname, "public")}index.html`);
 });
 
 // translates the text in DE
