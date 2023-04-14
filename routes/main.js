@@ -10,7 +10,8 @@ router.get("/", (req, res) => {
   res.sendFile(`${path.join(__dirname, "public")}index.html`);
 });
 
-// translates the text in DE
+// translates the text in german language
+// respondes with code 400 when body is not set correctly
 router.post("/translate/DE", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
@@ -25,7 +26,8 @@ router.post("/translate/DE", async (req, res) => {
   });
 });
 
-// translates the text in EN
+// translates the text in english language
+// respondes with code 400 when body is not set correctly
 router.post("/translate/EN", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
@@ -40,7 +42,8 @@ router.post("/translate/EN", async (req, res) => {
   });
 });
 
-// gs correct the german input text
+// corrects the german input text grammar and spelling
+// respondes with code 400 when body is not set correctly
 router.post("/optimize/gs-correction", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
@@ -57,6 +60,7 @@ router.post("/optimize/gs-correction", async (req, res) => {
 });
 
 // paraphrases the german input text
+// respondes with code 400 when body is not set correctly
 router.post("/optimize/paraphrasing", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
@@ -72,7 +76,10 @@ router.post("/optimize/paraphrasing", async (req, res) => {
   });
 });
 
-// checks delta of two texts
+// calculates the delta between two english texts
+// default calculation bases on semantic check
+// mode can be set as syntactic in url
+// respondes with code 400 when body is not set correctly
 router.post("/similarity/:mode?", async (req, res) => {
   if (!req.body.originEnglishText || !req.body.englishTranslation) {
     res

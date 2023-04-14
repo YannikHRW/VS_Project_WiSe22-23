@@ -1,10 +1,16 @@
 require("dotenv").config();
 const axios = require("axios");
 
+/**
+ * send nlp request
+ * @param {Object} textOB {text: "...", service: "gs-correction" / "paraphrasing", asyncMode: "" / "async/"}
+ * @returns nlp api response optimized text. Error msg in case api sends error
+ */
 const sendtoNLP = async function (inputOB) {
   let res = await fetchAPI(inputOB);
   let status = res.status;
 
+  // if response code is 202, send new request to initial responded url until it response with 200
   while (status === 202) {
     let beggingRes = await fetchAPIBegging(res.data.url);
     status = beggingRes.status;
@@ -22,6 +28,10 @@ const sendtoNLP = async function (inputOB) {
     return `Error: NLP-API responded with a ${status} Code.`;
   }
 };
+/**
+ * fetch nlp api
+ * @returns response
+ */
 const fetchAPI = async (inputOB) => {
   return await axios
     .post(
@@ -35,6 +45,10 @@ const fetchAPI = async (inputOB) => {
     });
 };
 
+/**
+ * fetch nlp api with async url
+ * @returns response
+ */
 const fetchAPIBegging = async (resURL) => {
   return await axios
     .get(resURL, { headers: { Authorization: `Token ${process.env.NLP_KEY}` } })

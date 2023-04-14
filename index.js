@@ -7,6 +7,8 @@ const router = require("./routes/main");
 
 const server = express();
 server.use(express.static(path.join(__dirname, "public")));
+
+// app accepts reqeusts from swagger env
 server.use(
   cors({
     origin: ["https://editor.swagger.io"],

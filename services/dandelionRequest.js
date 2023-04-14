@@ -1,6 +1,11 @@
 require("dotenv").config();
 const axios = require("axios");
 
+/**
+ * send dandelion request
+ * @param {Object} textOB {text1: "...", text2: "...", syntacticMode: "" / "bow=always&"}
+ * @returns dandelion api response delta with both texts. Error msg in case api sends error
+ */
 const sendtoDandelion = async function (textOB) {
   const res = await fetchAPI(textOB);
   let result = {
@@ -15,7 +20,10 @@ const sendtoDandelion = async function (textOB) {
     return result;
   }
 };
-
+/**
+ * fetch deepl api
+ * @returns response
+ */
 const fetchAPI = async (textOB) => {
   return await axios
     .get(

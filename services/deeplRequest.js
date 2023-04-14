@@ -1,6 +1,11 @@
 require("dotenv").config();
 const axios = require("axios");
 
+/**
+ * send deepl request
+ * @param {Object} textOB {lang: "EN/DE", text: "text"}
+ * @returns deepl api response filtered text. Error msg in case api sends error
+ */
 const sendtoDeepL = async function (textOB) {
   const res = await fetchAPI(textOB);
   if (res.status === 200) {
@@ -10,6 +15,10 @@ const sendtoDeepL = async function (textOB) {
   }
 };
 
+/**
+ * fetch deepl api
+ * @returns response
+ */
 const fetchAPI = async (textOB) => {
   return await axios
     .post(
