@@ -13,3 +13,11 @@ $ npm run start
 ```
 
 Die App sollte jetzt unter [localhost:5000](http://localhost:5000/) erreichbar sein.
+
+## Tests ausführen
+
+```sh
+$ npm test
+```
+
+Es wird automatisch eine HTML Seite, welche [hier](./coverage/index.html) erreichbar ist.
