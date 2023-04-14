@@ -1,18 +1,15 @@
-# node-js-getting-started
+# VS project group 12
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+Das Projekt ist [hier](https://vs-project-group-12.herokuapp.com/) erreichbar.
+Die api-doku ist [hier](https://vs-project-group-12.herokuapp.com/api-docs/) erreichbar.
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
+$ git clone https://github.com/YannikHRW/VS_Project_WiSe22-23.git
+$ cd VS_Project_WiSe22-23
 $ npm install
-$ npm start
+$ npm run start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
