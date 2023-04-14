@@ -1,9 +1,7 @@
 const express = require("express");
 const request = require("supertest");
 
-const routerExport = require("../routes/main");
-const router = routerExport.router;
-const vars = routerExport.vars;
+const router = require("../routes/main");
 
 const server = express();
 const bodyParser = require("body-parser");
@@ -19,11 +17,6 @@ describe("Test routes", function () {
 
   // need to encrease timeout for request with long text
   jest.setTimeout(30000);
-
-  beforeEach(() => {
-    vars.originEnglishText = "";
-    vars.englishTranslation = "";
-  });
 
   test("responds properly to /translate/DE and /translate/EN with wrong key in body", async () => {
     const mockedBody = {
@@ -56,7 +49,6 @@ describe("Test routes", function () {
       .post(`/translate/DE`)
       .send({ text: "this is a test" });
     expect(resDE.status).toBe(200);
-    expect(vars.originEnglishText).toBe("this is a test");
     expect(resDE.body).toStrictEqual({
       germanTranslation: "Dies ist ein Test",
     });
@@ -161,18 +153,32 @@ describe("Test routes", function () {
   });
   //...
   test("responds properly to /similarity check when no word is set", async () => {
-    const res = await request(server).get(`/similarity`);
+    const res = await request(server).post(`/similarity`).send({
+      originEnglishText: "",
+      englishTranslation: "",
+    });
     expect(res.status).toBe(400);
     expect(res.text).toBe(
       "can't compare if there is no origin text or no optimized text"
     );
   });
 
-  test("responds properly to /similarity check when 'originEnglishText' and 'englishTranslation' is set", async () => {
-    vars.originEnglishText = "test this thing here";
-    vars.englishTranslation = "test this thing here please";
+  test("responds properly to /similarity check with wrong body", async () => {
+    const res = await request(server).post(`/similarity`).send({
+      hallo: "",
+      test: "",
+    });
+    expect(res.status).toBe(400);
+    expect(res.text).toBe(
+      "can't compare if there is no origin text or no optimized text"
+    );
+  });
 
-    const res = await request(server).get(`/similarity`);
+  test("responds properly to /similarity check with correct body", async () => {
+    const res = await request(server).post(`/similarity`).send({
+      originEnglishText: "test this thing here",
+      englishTranslation: "test this thing here please",
+    });
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual({
       delta: {
@@ -183,11 +189,11 @@ describe("Test routes", function () {
     });
   });
 
-  test("responds properly to /similarity/syntactic check when 'originEnglishText' and 'englishTranslation' is set", async () => {
-    vars.originEnglishText = "test this thing here";
-    vars.englishTranslation = "test this thing here please";
-
-    const res = await request(server).get(`/similarity/syntactic`);
+  test("responds properly to /similarity/syntactic check with correct body", async () => {
+    const res = await request(server).post(`/similarity/syntactic`).send({
+      originEnglishText: "test this thing here",
+      englishTranslation: "test this thing here please",
+    });
     expect(res.status).toBe(200);
     expect(res.body).toStrictEqual({
       delta: {
