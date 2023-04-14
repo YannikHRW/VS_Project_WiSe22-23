@@ -8,7 +8,11 @@ const Dandelion = require("../services/dandelionRequest");
 
 const vars = { originEnglishText: "", englishTranslation: "" };
 
-router.get("/", (req, res) => res.render("pages/index"));
+/* router.get("/", (req, res) => res.render("pages/index")); */
+
+router.get("/", (req, res) => {
+  res.sendFile(`${path.join(__dirname, "vs-frontend")}index.html`);
+});
 
 // translates the text in DE
 router.post("/translate/DE", async (req, res) => {
