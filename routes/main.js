@@ -92,6 +92,7 @@ router.get("/similarity/:mode?", async (req, res) => {
     return;
   }
   let syntacticMode = "";
+  console.log(req.params.mode === "syntactic");
   if (req.params.mode === "syntactic") {
     syntacticMode = "bow=always&";
   }
