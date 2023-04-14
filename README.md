@@ -1,6 +1,6 @@
 # VS project group 12
 
-Das Projekt ist [hier](https://vs-project-group-12.herokuapp.com/) erreichbar.
+Das Projekt ist [hier](https://vs-project-group-12.herokuapp.com/) erreichbar.  
 Die api-doku ist [hier](https://vs-project-group-12.herokuapp.com/api-docs/) erreichbar.
 
 ## Running Locally
