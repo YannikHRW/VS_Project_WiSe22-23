@@ -10,10 +10,7 @@ const server = express();
 server.use(express.static(path.join(__dirname, "public")));
 server.use(
   cors({
-    origin: [
-      "https://vs-project-group-12.herokuapp.com",
-      "https://editor.swagger.io",
-    ],
+    origin: ["https://editor.swagger.io"],
   })
 );
 server.use(express.json());
