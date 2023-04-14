@@ -142,12 +142,25 @@ paths:
         '400':
           description: Returns 'missing the key 'text' in body' otherwise.
   /similarity/:
-    get:
+    post:
       tags:
         - similarity
       summary: Checks the similarity between both inputs (semantic calculation)
       description: Checks the similarity between the first English input and the English translation (semantic  calculation).
       operationId: similarity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originEnglishText:
+                  type: string
+                  example: Computers have had difficulty comprehending language due to their inability to grasp the nuances of language.
+                englishTranslation:
+                  type: string
+                  example: Computers have a hard time understanding language.
+        required: true
       responses:
         '200':
           description: If the request body is set correctly.
@@ -158,23 +171,36 @@ paths:
                 properties:
                   originEnglishText:
                     type: string
-                    example: This is my text
+                    example: Computers have had difficulty comprehending language due to their inability to grasp the nuances of language.
                   optimizedEnglishText:
                     type: string
-                    example: This is my text!
+                    example: Computers have a hard time understanding language.
                   similarity:
                     type: integer
-                    example: 0.9998
+                    example: 1
                     format: int64
         '400':
-          description: If at least one variable is missing.
+          description: Returns 'can't compare if there is no origin text or no optimized text' otherwise.
   /similarity/syntactic:
-    get:
+    post:
       tags:
         - similarity
       summary: Checks the similarity between both inputs (syntactic calculation)
       description: Checks the similarity between the first English input and the English translation (syntactic calculation).
       operationId: similaritySyntactic
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originEnglishText:
+                  type: string
+                  example: Computers have had difficulty comprehending language due to their inability to grasp the nuances of language.
+                englishTranslation:
+                  type: string
+                  example: Computers have a hard time understanding language.
+        required: true
       responses:
         '200':
           description: If the request body is set correctly.
@@ -185,13 +211,13 @@ paths:
                 properties:
                   originEnglishText:
                     type: string
-                    example: This is my text
+                    example: Computers have had difficulty comprehending language due to their inability to grasp the nuances of language.
                   optimizedEnglishText:
                     type: string
-                    example: This is my text!
+                    example: Computers have a hard time understanding language.
                   similarity:
                     type: integer
-                    example: 0.9998
+                    example: 0.2838
                     format: int64
         '400':
-          description: If at least one variable is missing.
+          description: Returns 'can't compare if there is no origin text or no optimized text' otherwise.

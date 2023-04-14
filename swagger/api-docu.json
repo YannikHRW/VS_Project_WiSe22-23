@@ -1,0 +1,349 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.11",
+    "title": "VS_PROJECT_WiSe22-23",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "yannik.wegner@stud.hs-ruhrwest.de"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "translate",
+      "description": "Operations about translation"
+    },
+    {
+      "name": "optimize",
+      "description": "Operations about optimization"
+    },
+    {
+      "name": "similarity",
+      "description": "Operations about delta calculation"
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://vs-project-group-12.herokuapp.com",
+      "description": "Production server"
+    },
+    {
+      "url": "http://localhost:5000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/translate/DE": {
+      "post": {
+        "tags": [
+          "translate"
+        ],
+        "summary": "Translates any text into German text",
+        "description": "Entered text will be translated into German. The input language is automatically detected.",
+        "operationId": "translateTextToGerman",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "This is my text"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "germanTranslation": {
+                      "type": "string",
+                      "example": "Das ist mein Text"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'missing the key 'text' in body' otherwise."
+          }
+        }
+      }
+    },
+    "/translate/EN": {
+      "post": {
+        "tags": [
+          "translate"
+        ],
+        "summary": "Translates any text into English text",
+        "description": "Entered text will be translated into English. The input language is automatically detected.",
+        "operationId": "translateTextToEnglish",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "Das ist mein Text"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "englishTranslation": {
+                      "type": "string",
+                      "example": "This is my text"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'missing the key 'text' in body' otherwise."
+          }
+        }
+      }
+    },
+    "/optimize/gs-correction": {
+      "post": {
+        "tags": [
+          "optimize"
+        ],
+        "summary": "Corrects German text grammar and spelling",
+        "description": "Grammar and spelling mistakes will be corrected.",
+        "operationId": "optimizeGS",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "hallo dass ist ei test"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "optimizedGermanText": {
+                      "type": "string",
+                      "example": "Hallo, das ist ein Test"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'missing the key 'text' in body' otherwise."
+          }
+        }
+      }
+    },
+    "/optimize/paraphrasing": {
+      "post": {
+        "tags": [
+          "optimize"
+        ],
+        "summary": "Rephrases the German text",
+        "description": "Rephrases the text into an optimized version.",
+        "operationId": "optimizePara",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "example": "Das Sekretariat als allgemeine Anlaufstelle für eingehende Anrufe bearbeitete diese bisher nach bestem Wissen und Gewissen. Hier wurde Abhilfe geschaffen, indem das Vorgehen im Falle eines Anrufes klar definiert wurde. Wenn möglich soll das Sekretariat sich dem Anliegen des Anrufers annehmen."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "optimizedGermanText": {
+                      "type": "string",
+                      "example": "Das Sekretariat, bei dem die meisten Anrufe eingingen, hatte in der Vergangenheit Probleme, diese angemessen zu bearbeiten. Dieses Problem wurde inzwischen gelöst, indem sichergestellt wurde, dass es eine Reihe von Schritten gibt, die bei Eingang eines Anrufs zu unternehmen sind. Wenn möglich, sollte das Sekretariat in der Lage sein, die Anfrage des Anrufers zu beantworten."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'missing the key 'text' in body' otherwise."
+          }
+        }
+      }
+    },
+    "/similarity/": {
+      "post": {
+        "tags": [
+          "similarity"
+        ],
+        "summary": "Checks the similarity between both inputs (semantic calculation)",
+        "description": "Checks the similarity between the first English input and the English translation (semantic  calculation).",
+        "operationId": "similarity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originEnglishText": {
+                    "type": "string",
+                    "example": "Computers have had difficulty comprehending language due to their inability to grasp the nuances of language."
+                  },
+                  "englishTranslation": {
+                    "type": "string",
+                    "example": "Computers have a hard time understanding language."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "originEnglishText": {
+                      "type": "string",
+                      "example": "Computers have had difficulty comprehending language due to their inability to grasp the nuances of language."
+                    },
+                    "optimizedEnglishText": {
+                      "type": "string",
+                      "example": "Computers have a hard time understanding language."
+                    },
+                    "similarity": {
+                      "type": "integer",
+                      "example": 1,
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'can't compare if there is no origin text or no optimized text' otherwise."
+          }
+        }
+      }
+    },
+    "/similarity/syntactic": {
+      "post": {
+        "tags": [
+          "similarity"
+        ],
+        "summary": "Checks the similarity between both inputs (syntactic calculation)",
+        "description": "Checks the similarity between the first English input and the English translation (syntactic calculation).",
+        "operationId": "similaritySyntactic",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "originEnglishText": {
+                    "type": "string",
+                    "example": "Computers have had difficulty comprehending language due to their inability to grasp the nuances of language."
+                  },
+                  "englishTranslation": {
+                    "type": "string",
+                    "example": "Computers have a hard time understanding language."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "If the request body is set correctly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "originEnglishText": {
+                      "type": "string",
+                      "example": "Computers have had difficulty comprehending language due to their inability to grasp the nuances of language."
+                    },
+                    "optimizedEnglishText": {
+                      "type": "string",
+                      "example": "Computers have a hard time understanding language."
+                    },
+                    "similarity": {
+                      "type": "integer",
+                      "example": 0.2838,
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Returns 'can't compare if there is no origin text or no optimized text' otherwise."
+          }
+        }
+      }
+    }
+  }
+}

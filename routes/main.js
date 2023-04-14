@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../swagger/api-docu.json");
+
 const Deepl = require("../services/deeplRequest");
 const NlpExport = require("../services/nlpRequest");
 const Nlp = NlpExport.sendtoNLP;
 const Dandelion = require("../services/dandelionRequest");
+
+router.use("/api-docs", swaggerUi.serve);
+router.get("/api-docs", swaggerUi.setup(swaggerDocument));
 
 router.get("/", (req, res) => {
   res.sendFile(`${path.join(__dirname, "public")}index.html`);
