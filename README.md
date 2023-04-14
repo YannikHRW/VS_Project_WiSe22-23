@@ -20,4 +20,4 @@ Die App sollte jetzt unter [localhost:5000](http://localhost:5000/) erreichbar s
 $ npm test
 ```
 
-Es wird automatisch eine HTML Seite, welche [hier](./coverage/index.html) erreichbar ist.
+Es wird automatisch eine HTML Seite erstellt, welche [hier](./coverage/index.html) abgelegt wird.
