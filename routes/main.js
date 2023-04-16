@@ -46,7 +46,7 @@ router.post("/translate/EN", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
+    res.status(200).json(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let englishTranslation = await Deepl({
@@ -66,7 +66,7 @@ router.post("/optimize/gs-correction", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
+    res.status(200).json(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextGS = await Nlp({
@@ -87,7 +87,7 @@ router.post("/optimize/paraphrasing", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
+    res.status(200).json(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextPara = await Nlp({
@@ -115,7 +115,7 @@ router.post("/similarity/:mode?", async (req, res) => {
     req.body.originEnglishText > MAX_TEXT_LENGTH ||
     req.body.englishTranslation > MAX_TEXT_LENGTH
   ) {
-    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
+    res.status(200).json(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let syntacticMode = "";
