@@ -9,7 +9,7 @@ const NlpExport = require("../services/nlpRequest");
 const Nlp = NlpExport.sendtoNLP;
 const Dandelion = require("../services/dandelionRequest");
 
-const MAX_TEXT_LENGTH = 100;
+const MAX_TEXT_LENGTH = 5000;
 
 router.use("/api-docs", swaggerUi.serve);
 router.get("/api-docs", swaggerUi.setup(swaggerDocument));
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/max-length", (req, res) => {
-  res.json(MAX_TEXT_LENGTH);
+  res.json({ maxLength: MAX_TEXT_LENGTH });
 });
 
 // translates the text in german language
@@ -124,8 +124,8 @@ router.post("/similarity/:mode?", async (req, res) => {
     return;
   }
   if (
-    req.body.originEnglishText > MAX_TEXT_LENGTH ||
-    req.body.englishTranslation > MAX_TEXT_LENGTH
+    req.body.originEnglishText.length > MAX_TEXT_LENGTH ||
+    req.body.englishTranslation.length > MAX_TEXT_LENGTH
   ) {
     res
       .status(400)
@@ -146,4 +146,4 @@ router.post("/similarity/:mode?", async (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = { router, MAX_TEXT_LENGTH };
