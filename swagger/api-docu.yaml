@@ -6,8 +6,8 @@ info:
   contact:
     email: "yannik.wegner@stud.hs-ruhrwest.de"
   license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    name: "Heroku"
+    url: "https://devcenter.heroku.com/"
 tags:
 - name: "translate"
   description: "Operations about translation"
