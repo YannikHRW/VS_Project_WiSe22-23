@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/max-length", (req, res) => {
-  res.json({ maxLength: MAX_TEXT_LENGTH });
+  res.json(MAX_TEXT_LENGTH);
 });
 
 // translates the text in german language
@@ -30,9 +30,9 @@ router.post("/translate/DE", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).json({
-      errorMsg: `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`,
-    });
+    res
+      .status(400)
+      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let germanTranslation = await Deepl({
@@ -52,9 +52,9 @@ router.post("/translate/EN", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).json({
-      errorMsg: `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`,
-    });
+    res
+      .status(400)
+      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let englishTranslation = await Deepl({
@@ -74,9 +74,9 @@ router.post("/optimize/gs-correction", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).json({
-      errorMsg: `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`,
-    });
+    res
+      .status(400)
+      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextGS = await Nlp({
@@ -97,9 +97,9 @@ router.post("/optimize/paraphrasing", async (req, res) => {
     return;
   }
   if (req.body.text.length > MAX_TEXT_LENGTH) {
-    res.status(400).json({
-      errorMsg: `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`,
-    });
+    res
+      .status(400)
+      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextPara = await Nlp({
@@ -127,9 +127,9 @@ router.post("/similarity/:mode?", async (req, res) => {
     req.body.originEnglishText > MAX_TEXT_LENGTH ||
     req.body.englishTranslation > MAX_TEXT_LENGTH
   ) {
-    res.status(400).json({
-      errorMsg: `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`,
-    });
+    res
+      .status(400)
+      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let syntacticMode = "";
