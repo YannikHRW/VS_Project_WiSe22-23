@@ -9,6 +9,8 @@ const NlpExport = require("../services/nlpRequest");
 const Nlp = NlpExport.sendtoNLP;
 const Dandelion = require("../services/dandelionRequest");
 
+const MAX_TEXT_LENGTH = 100;
+
 router.use("/api-docs", swaggerUi.serve);
 router.get("/api-docs", swaggerUi.setup(swaggerDocument));
 
@@ -21,6 +23,10 @@ router.get("/", (req, res) => {
 router.post("/translate/DE", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
+    return;
+  }
+  if (req.body.text.length > MAX_TEXT_LENGTH) {
+    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let germanTranslation = await Deepl({
@@ -39,6 +45,10 @@ router.post("/translate/EN", async (req, res) => {
     res.status(400).send("missing the key 'text' in body");
     return;
   }
+  if (req.body.text.length > MAX_TEXT_LENGTH) {
+    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
+    return;
+  }
   let englishTranslation = await Deepl({
     lang: "EN",
     text: req.body.text,
@@ -53,6 +63,10 @@ router.post("/translate/EN", async (req, res) => {
 router.post("/optimize/gs-correction", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
+    return;
+  }
+  if (req.body.text.length > MAX_TEXT_LENGTH) {
+    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextGS = await Nlp({
@@ -70,6 +84,10 @@ router.post("/optimize/gs-correction", async (req, res) => {
 router.post("/optimize/paraphrasing", async (req, res) => {
   if (!req.body.text) {
     res.status(400).send("missing the key 'text' in body");
+    return;
+  }
+  if (req.body.text.length > MAX_TEXT_LENGTH) {
+    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let optimizedTextPara = await Nlp({
@@ -91,6 +109,13 @@ router.post("/similarity/:mode?", async (req, res) => {
     res
       .status(400)
       .send("can't compare if there is no origin text or no optimized text");
+    return;
+  }
+  if (
+    req.body.originEnglishText > MAX_TEXT_LENGTH ||
+    req.body.englishTranslation > MAX_TEXT_LENGTH
+  ) {
+    res.status(400).send(`max text length is ${MAX_TEXT_LENGTH} tokens.`);
     return;
   }
   let syntacticMode = "";
