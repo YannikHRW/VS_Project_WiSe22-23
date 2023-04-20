@@ -9,7 +9,7 @@ const NlpExport = require("../services/nlpRequest");
 const Nlp = NlpExport.sendtoNLP;
 const Dandelion = require("../services/dandelionRequest");
 
-const MAX_TEXT_LENGTH = 5000;
+const MAX_TEXT_LENGTH = 2000;
 
 router.use("/api-docs", swaggerUi.serve);
 router.get("/api-docs", swaggerUi.setup(swaggerDocument));
@@ -123,13 +123,19 @@ router.post("/similarity/:mode?", async (req, res) => {
       .send("can't compare if there is no origin text or no optimized text");
     return;
   }
+
+  // dandelion api only accepts 4096 chars long URI (request url was 5865 characters long, max is 4096)
+  // 77 chars are already set by default url tokens like this: /datatxt/sim/v1/?lang=en&text1=&text2=&token=12341234123412341234123412341234
+  // so for each text is only a text length of 2000 tokens including the URI Codes allowed
   if (
-    req.body.originEnglishText.length > MAX_TEXT_LENGTH ||
-    req.body.englishTranslation.length > MAX_TEXT_LENGTH
+    encodeURIComponent(req.body.originEnglishText).length > MAX_TEXT_LENGTH ||
+    encodeURIComponent(req.body.englishTranslation).length > MAX_TEXT_LENGTH
   ) {
     res
       .status(400)
-      .send(`Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`);
+      .send(
+        `Error: This char amount is not supported for similarity check. Try with less tokens!`
+      );
     return;
   }
   let syntacticMode = "";

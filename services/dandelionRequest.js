@@ -8,7 +8,6 @@ const axios = require("axios");
  */
 const sendtoDandelion = async function (textOB) {
   const res = await fetchAPI(textOB);
-  console.log(res);
   let result = {
     originEnglishText: textOB.text1,
     optimizedEnglishText: textOB.text2,
@@ -26,11 +25,13 @@ const sendtoDandelion = async function (textOB) {
  * @returns response
  */
 const fetchAPI = async (textOB) => {
-  console.log(textOB);
   return await axios
-    .post(
-      `https://api.dandelion.eu/datatxt/sim/v1/?lang=en&${textOB.syntacticMode}text1=text&text2=text&token=${process.env.Dandelion_KEY}`,
-      { text1: textOB.text1, text2: textOB.text2 }
+    .get(
+      `https://api.dandelion.eu/datatxt/sim/v1/?lang=en&${
+        textOB.syntacticMode
+      }text1=${encodeURIComponent(textOB.text1)}&text2=${encodeURIComponent(
+        textOB.text2
+      )}&token=${process.env.Dandelion_KEY}`
     )
     .catch((err) => {
       console.log(err);

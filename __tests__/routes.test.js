@@ -21,7 +21,7 @@ describe("Test routes", function () {
     const res = await request(server).get("/max-length");
     console.log(res.text.maxLength);
     expect(res.body).toStrictEqual({
-      maxLength: 5000,
+      maxLength: 2000,
     });
   });
 
@@ -238,7 +238,7 @@ describe("Test routes", function () {
     });
     expect(res.status).toBe(400);
     expect(res.text).toBe(
-      `Error: Max text length is ${MAX_TEXT_LENGTH} tokens.`
+      `Error: This char amount is not supported for similarity check. Try with less tokens!`
     );
   });
 
@@ -267,7 +267,7 @@ describe("Test routes", function () {
       delta: {
         optimizedEnglishText: "test this thing here please",
         originEnglishText: "test this thing here",
-        similarity: 1,
+        similarity: 0.7202,
       },
     });
   });

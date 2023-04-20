@@ -7,6 +7,9 @@ npm-debug.log
 *.dev
 .DS_Store
 
+# Tests
+coverage
+
 # Docker
 Dockerfile
 docker-compose.yml
